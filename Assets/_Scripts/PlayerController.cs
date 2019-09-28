@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     public GameController gameController;
 
 
+    // private variables
     private AudioSource thunderSound;
     private AudioSource yaySound;
 
@@ -67,10 +68,12 @@ public class PlayerController : MonoBehaviour
         {
             case "Cloud":
                 thunderSound.Play();
+                gameController.Lives -= 1;
 
                 break;
             case "Island":
                 yaySound.Play();
+                gameController.Score += 100;
 
                 break;
         }
