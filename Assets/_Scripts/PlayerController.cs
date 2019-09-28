@@ -8,10 +8,19 @@ public class PlayerController : MonoBehaviour
     public Speed speed;
     public Boundary boundary;
 
+    public GameController gameController;
+
+
+    private AudioSource thunderSound;
+    private AudioSource yaySound;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+
+
+        thunderSound = gameController.audioSources[(int)SoundClip.THUNDER];
+        yaySound = gameController.audioSources[(int)SoundClip.YAY];
     }
 
     // Update is called once per frame
@@ -49,6 +58,21 @@ public class PlayerController : MonoBehaviour
         if (transform.position.x < boundary.LeftBounds)
         {
             transform.position = new Vector2(boundary.LeftBounds, transform.position.y);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        switch(other.gameObject.tag)
+        {
+            case "Cloud":
+                thunderSound.Play();
+
+                break;
+            case "Island":
+                yaySound.Play();
+
+                break;
         }
     }
 }
